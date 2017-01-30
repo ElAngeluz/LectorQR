@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="LECTOR QR"
+        android:text="Lector de Barra"
         android:textSize="30sp"
         android:textStyle="bold"
         android:gravity="center_horizontal"
@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1F1F1F"
-        android:text="Scanear QR"
+        android:text="Scanear Producto"
         android:textColor="@android:color/white"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -51,6 +51,6 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_horizontal"
-        android:text="123456"
+        android:text="-"
         />
 </LinearLayout>
