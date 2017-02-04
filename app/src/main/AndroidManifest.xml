@@ -57,13 +57,6 @@
                android:logo="@drawable/launcher_icon"
                android:label="@string/app_name"
                android:allowBackup="true">
-    <activity android:name="com.example.kb.lectorqr.MainActivity">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN"/>
-        <category android:name="android.intent.category.LAUNCHER"/>
-      </intent-filter>
-    </activity>
-
     <activity android:name=".CaptureActivity"
               android:screenOrientation="sensorLandscape"
               android:clearTaskOnLaunch="true"
@@ -129,6 +122,14 @@
       </intent-filter>
     </activity>
 
+    <activity android:name="com.example.kb.lectorqr.MainActivity"
+        android:label="@string/mainacti">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+
     <activity android:name=".book.SearchBookContentsActivity"
               android:label="@string/sbc_name"
               android:stateNotNeeded="true"
@@ -138,7 +139,6 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
-
     <activity android:name=".share.ShareActivity"
               android:stateNotNeeded="true"
               android:screenOrientation="user">
@@ -147,19 +147,15 @@
         <category android:name="android.intent.category.DEFAULT"/>
       </intent-filter>
     </activity>
-
     <activity android:name=".history.HistoryActivity"
               android:label="@string/history_title"
               android:stateNotNeeded="true"/>
-
     <activity android:name=".share.BookmarkPickerActivity"
               android:label="@string/bookmark_picker_name"
               android:stateNotNeeded="true"/>
-
     <activity android:name=".share.AppPickerActivity"
               android:label="@string/app_picker_name"
               android:stateNotNeeded="true"/>
-
     <activity android:name=".HelpActivity"
               android:label="@string/menu_help"
               android:screenOrientation="user"
