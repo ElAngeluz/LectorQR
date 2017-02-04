@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -87,9 +88,11 @@ public class MainActivity extends Activity {
                 if (isChecked) {
                     sFacturacion.setText("Ventas");
                     ventas = true;
+                    limpiarControles();
                 }else {
                     sFacturacion.setText("Compras");
                     ventas = false;
+                    limpiarControles();
                 }
             }
         });
@@ -108,28 +111,32 @@ public class MainActivity extends Activity {
         codigo = etFactura.getText().toString();
         cantidad = etCantidad.getText().toString();
         producto = tvResult.getText().toString();
-        
-        Send(codigo, cantidad, producto);
+
+        if (codigo.isEmpty() || cantidad.isEmpty() || producto.isEmpty())
+            Toast.makeText(this, "Ha dejado campos vacios",
+                    Toast.LENGTH_LONG).show();
+        else
+            Send(codigo, cantidad, producto);
     }
 
-    //http://angeluz.azurewebsites.net
+    //envio los datos al servidor
     private void Send(String _codigo, String _cantidad, String _producto) {
-        class SendAsync extends AsyncTask<String,Void,String>{
+        class SendAsync extends AsyncTask <String,String,String>{
             private Dialog loadingDialog;
-
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                loadingDialog = ProgressDialog.show(MainActivity.this, "Please wait", "Loading...");
+                loadingDialog = ProgressDialog.show(MainActivity.this, "Espere por favor", "Guardando...");
             }
 
             @Override
             protected String doInBackground(String... params) {
                 InputStream is = null;
-                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
+
+                List<NameValuePair> nameValuePairs = new ArrayList<>();
                 nameValuePairs.add(new BasicNameValuePair("codigo", params[0]));
                 nameValuePairs.add(new BasicNameValuePair("producto", params[1]));
-                nameValuePairs.add(new BasicNameValuePair("cantidad", params[3]));
+                nameValuePairs.add(new BasicNameValuePair("cantidad", params[2]));
                 String result = null;
 
                 try {
@@ -162,7 +169,6 @@ public class MainActivity extends Activity {
                         sb.append(line + "\n");
                     }
                     result = sb.toString();
-
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 } catch (ClientProtocolException e) {
@@ -172,7 +178,25 @@ public class MainActivity extends Activity {
                 }
                 return result;
             }
+
+            @Override
+            protected void onPostExecute(String result){
+                if(result == null)
+                    Toast.makeText(MainActivity.this, "NO hay Conexión a internet ", Toast.LENGTH_SHORT).show();
+                else {
+                    String s = result.trim();
+                }
+                loadingDialog.dismiss();
+                etCantidad.setText(null);
+            }
         }
+
+        new SendAsync().execute(_codigo, _cantidad, _producto);
+    }
+
+    void limpiarControles(){
+        etCantidad.setText(null);
+        etFactura.setText(null);
     }
 
 
