@@ -5,3 +5,5 @@ se modifico el proyecto original del #LuisNatividad para crear un app que se con
 #Azure para ingresar compras y ventas a un base de datos
 
 proyecto para la materia de Java en ESPOL
+
+para ver el código de conexión revisar el #WIKI del proyecto
